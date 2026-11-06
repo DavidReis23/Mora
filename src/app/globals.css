@@ -1,6 +1,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --container-width: 1200px;
+  --primary-color: #2563eb;
+  --page-spacing: 24px;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -45,5 +48,18 @@ a {
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
+  }
+}
+
+
+@media (max-width: 900px) {
+  :root {
+    --page-spacing: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --page-spacing: 16px;
   }
 }
