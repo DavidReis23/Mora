@@ -1,8 +1,10 @@
-﻿export default function Page() {
+﻿import AuthLayout from "@/components/auth/AuthLayout";
+import PasswordRecoveryForm from "@/components/auth/PasswordRecoveryForm";
+
+export default function RecuperarSenhaPage() {
   return (
-    <main>
-      <h1>Mora - Recuperar Senha</h1>
-      <p>Página em desenvolvimento.</p>
-    </main>
+    <AuthLayout>
+      <PasswordRecoveryForm />
+    </AuthLayout>
   );
 }
