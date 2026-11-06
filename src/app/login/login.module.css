@@ -1,0 +1,119 @@
+.layout {
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+.presentation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 48px;
+    padding: clamp(28px, 5vw, 64px);
+    color: #ffffff;
+    background: linear-gradient(145deg,
+            #0b2b67 0%,
+            #1256c5 60%,
+            #2c82ff 100%);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: fit-content;
+    color: #ffffff;
+    font-size: 30px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.content {
+    max-width: 540px;
+}
+
+.label {
+    display: block;
+    margin-bottom: 22px;
+    color: #bfdbfe;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.content h1 {
+    margin: 0 0 24px;
+    font-size: clamp(36px, 4.5vw, 60px);
+    line-height: 1.12;
+    letter-spacing: -1.5px;
+}
+
+.content p {
+    max-width: 480px;
+    color: #dbeafe;
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+.categories {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+}
+
+.categories span {
+    padding: 9px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.footer {
+    color: #bfdbfe;
+    font-size: 12px;
+}
+
+.formArea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 24px;
+    background: #f4f8ff;
+}
+
+@media (max-width: 850px) {
+    .layout {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .presentation {
+        min-height: 170px;
+        padding: 24px 20px 58px;
+    }
+
+    .brand {
+        font-size: 25px;
+    }
+
+    .content,
+    .footer {
+        display: none;
+    }
+
+    .formArea {
+        position: relative;
+        flex: 1;
+        align-items: flex-start;
+        margin-top: -30px;
+        padding: 0 16px 32px;
+        background: transparent;
+    }
+
+    .layout {
+        background: #f4f8ff;
+    }
+}
