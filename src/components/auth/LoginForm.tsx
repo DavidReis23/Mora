@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import styles from "./LoginForm.module.css";
+import styles from "./AuthForm.module.css";
 
 export default function LoginForm() {
   const [mostrarSenha, setMostrarSenha] = useState(false);

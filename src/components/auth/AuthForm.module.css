@@ -182,3 +182,75 @@
         margin-bottom: 20px;
     }
 }
+
+
+/* Ajustes exclusivos do cadastro */
+
+.registerCard {
+    padding: 28px 32px;
+}
+
+.registerCard h2 {
+    margin: 10px 0 6px;
+    font-size: 28px;
+}
+
+.registerCard .description {
+    margin-bottom: 16px;
+    line-height: 1.5;
+}
+
+.registerCard .form {
+    gap: 12px;
+}
+
+.registerCard .field {
+    gap: 5px;
+}
+
+.registerCard .field input {
+    height: 44px;
+}
+
+.registerCard .submit {
+    height: 46px;
+}
+
+.registerCard .signup {
+    margin-top: 16px;
+}
+
+.registerCard .separator {
+    margin: 12px 0;
+}
+
+.registerCard .explore {
+    padding: 10px;
+}
+
+/* Validação dos campos */
+
+.field .inputError {
+    border-color: #dc2626;
+}
+
+.field .inputError:focus {
+    border-color: #dc2626;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+}
+
+.errorText {
+    display: block;
+    margin-top: 2px;
+    color: #dc2626;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+/* Cadastro no celular */
+
+@media (max-width: 480px) {
+    .registerCard {
+        padding: 24px 20px;
+    }
+}

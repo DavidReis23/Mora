@@ -1,8 +1,10 @@
-﻿export default function Page() {
+﻿import AuthLayout from "@/components/auth/AuthLayout";
+import RegisterForm from "@/components/auth/RegisterForm";
+
+export default function CadastroPage() {
   return (
-    <main>
-      <h1>Mora - Cadastro</h1>
-      <p>Página em desenvolvimento.</p>
-    </main>
+    <AuthLayout>
+      <RegisterForm />
+    </AuthLayout>
   );
 }
