@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 
+import FormField from "./FormField";
 import styles from "./AuthForm.module.css";
 
 export default function PasswordRecoveryForm() {
@@ -45,9 +46,7 @@ export default function PasswordRecoveryForm() {
       </p>
 
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
-        <div className={styles.field}>
-          <label htmlFor="recoveryEmail">E-mail</label>
-
+        <FormField id="recoveryEmail" label="E-mail" error={erro}>
           <input
             id="recoveryEmail"
             name="email"
@@ -65,17 +64,7 @@ export default function PasswordRecoveryForm() {
             className={erro ? styles.inputError : ""}
             required
           />
-
-          {erro && (
-            <span
-              id="recoveryEmail-error"
-              className={styles.errorText}
-              role="alert"
-            >
-              {erro}
-            </span>
-          )}
-        </div>
+        </FormField>
 
         <button type="submit" className={styles.submit}>
           Continuar

@@ -2,17 +2,65 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+
+import FormField from "./FormField";
+import PasswordField from "./PasswordField";
 import styles from "./AuthForm.module.css";
+
+type LoginErrors = {
+  email?: string;
+  password?: string;
+};
 
 export default function LoginForm() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [errors, setErrors] = useState<LoginErrors>({});
   const [mensagem, setMensagem] = useState("");
+
+  function clearError(field: keyof LoginErrors) {
+    setErrors((prev) => ({
+      ...prev,
+      [field]: undefined,
+    }));
+
+    setMensagem("");
+  }
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
+    const dados = new FormData(event.currentTarget);
+
+    const email = String(dados.get("email") ?? "").trim();
+    const senha = String(dados.get("password") ?? "");
+
+    const novosErros: LoginErrors = {};
+
+    // Validar e-mail
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!email) {
+      novosErros.email = "Informe seu e-mail.";
+    } else if (!emailValido.test(email)) {
+      novosErros.email = "Digite um e-mail válido.";
+    }
+
+    // Validar senha
+    if (!senha) {
+      novosErros.password = "Informe sua senha.";
+    } else if (senha.length < 8) {
+      novosErros.password = "Sua senha deve ter pelo menos 8 caracteres.";
+    }
+
+    setErrors(novosErros);
+    setMensagem("");
+
+    if (Object.keys(novosErros).length > 0) {
+      return;
+    }
+
     setMensagem(
-      "Esta é uma prévia do formulário. A autenticação será implementada futuramente.",
+      "Formulário validado! A autenticação real será implementada futuramente.",
     );
   }
 
@@ -27,10 +75,9 @@ export default function LoginForm() {
         reservas.
       </p>
 
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <div className={styles.field}>
-          <label htmlFor="email">E-mail</label>
-
+      <form className={styles.form} onSubmit={handleSubmit} noValidate>
+        {/* E-mail */}
+        <FormField id="email" label="E-mail" error={errors.email}>
           <input
             id="email"
             name="email"
@@ -38,34 +85,26 @@ export default function LoginForm() {
             placeholder="Digite seu e-mail"
             autoComplete="email"
             required
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
+            className={errors.email ? styles.inputError : ""}
+            onChange={() => clearError("email")}
           />
-        </div>
+        </FormField>
 
-        <div className={styles.field}>
-          <label htmlFor="password">Senha</label>
-
-          <div className={styles.passwordField}>
-            <input
-              id="password"
-              name="password"
-              type={mostrarSenha ? "text" : "password"}
-              placeholder="Digite sua senha"
-              autoComplete="current-password"
-              minLength={6}
-              required
-            />
-
-            <button
-              type="button"
-              className={styles.passwordToggle}
-              onClick={() => setMostrarSenha(!mostrarSenha)}
-              aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
-              aria-pressed={mostrarSenha}
-            >
-              {mostrarSenha ? "Ocultar" : "Mostrar"}
-            </button>
-          </div>
-        </div>
+        {/* Senha */}
+        <FormField id="password" label="Senha" error={errors.password}>
+          <PasswordField
+            id="password"
+            name="password"
+            placeholder="Digite sua senha"
+            autoComplete="current-password"
+            visible={mostrarSenha}
+            onToggle={() => setMostrarSenha(!mostrarSenha)}
+            onChange={() => clearError("password")}
+            error={errors.password}
+          />
+        </FormField>
 
         <div className={styles.forgotPassword}>
           <Link href="/recuperar-senha">Esqueceu sua senha?</Link>

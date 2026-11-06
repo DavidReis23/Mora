@@ -3,7 +3,9 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 
+import FormField from "./FormField";
 import styles from "./AuthForm.module.css";
+import PasswordField from "./PasswordField";
 
 type FormErrors = {
   fullName?: string;
@@ -38,26 +40,26 @@ export default function RegisterForm() {
 
     const novosErros: FormErrors = {};
 
-    // Validar nome
+    // Validação do nome
     if (nome.length < 3) {
       novosErros.fullName = "Digite seu nome completo.";
     } else if (nome.includes("@")) {
       novosErros.fullName = "Informe seu nome, não um e-mail.";
     }
 
-    // Validar e-mail
+    // Validação do e-mail
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailValido.test(email)) {
       novosErros.email = "Digite um e-mail válido.";
     }
 
-    // Validar senha
+    // Validação da senha
     if (senha.length < 8) {
       novosErros.password = "Sua senha deve ter pelo menos 8 caracteres.";
     }
 
-    // Validar confirmação da senha
+    // Validação da confirmação
     if (!confirmarSenha) {
       novosErros.confirmPassword = "Confirme sua senha.";
     } else if (senha !== confirmarSenha) {
@@ -89,34 +91,24 @@ export default function RegisterForm() {
 
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         {/* Nome completo */}
-        <div className={styles.field}>
-          <label htmlFor="fullName">Nome completo</label>
-
+        <FormField id="fullName" label="Nome completo" error={errors.fullName}>
           <input
             id="fullName"
             name="fullName"
             type="text"
             placeholder="Digite seu nome completo"
             autoComplete="name"
-            required
             minLength={3}
+            required
             aria-invalid={!!errors.fullName}
             aria-describedby={errors.fullName ? "fullName-error" : undefined}
             className={errors.fullName ? styles.inputError : ""}
             onChange={() => clearError("fullName")}
           />
-
-          {errors.fullName && (
-            <span id="fullName-error" className={styles.errorText} role="alert">
-              {errors.fullName}
-            </span>
-          )}
-        </div>
+        </FormField>
 
         {/* E-mail */}
-        <div className={styles.field}>
-          <label htmlFor="registerEmail">E-mail</label>
-
+        <FormField id="registerEmail" label="E-mail" error={errors.email}>
           <input
             id="registerEmail"
             name="email"
@@ -125,59 +117,33 @@ export default function RegisterForm() {
             autoComplete="email"
             required
             aria-invalid={!!errors.email}
-            aria-describedby={errors.email ? "email-error" : undefined}
+            aria-describedby={errors.email ? "registerEmail-error" : undefined}
             className={errors.email ? styles.inputError : ""}
             onChange={() => clearError("email")}
           />
-
-          {errors.email && (
-            <span id="email-error" className={styles.errorText} role="alert">
-              {errors.email}
-            </span>
-          )}
-        </div>
+        </FormField>
 
         {/* Senha */}
-        <div className={styles.field}>
-          <label htmlFor="registerPassword">Senha</label>
 
-          <div className={styles.passwordField}>
-            <input
-              id="registerPassword"
-              name="password"
-              type={mostrarSenha ? "text" : "password"}
-              placeholder="Crie uma senha"
-              autoComplete="new-password"
-              minLength={8}
-              required
-              aria-invalid={!!errors.password}
-              aria-describedby={errors.password ? "password-error" : undefined}
-              className={errors.password ? styles.inputError : ""}
-              onChange={() => clearError("password")}
-            />
-
-            <button
-              type="button"
-              className={styles.passwordToggle}
-              onClick={() => setMostrarSenha(!mostrarSenha)}
-              aria-label={mostrarSenha ? "Ocultar senhas" : "Mostrar senhas"}
-              aria-pressed={mostrarSenha}
-            >
-              {mostrarSenha ? "Ocultar" : "Mostrar"}
-            </button>
-          </div>
-
-          {errors.password && (
-            <span id="password-error" className={styles.errorText} role="alert">
-              {errors.password}
-            </span>
-          )}
-        </div>
+        <FormField id="registerPassword" label="Senha" error={errors.password}>
+          <PasswordField
+            id="registerPassword"
+            name="password"
+            placeholder="Crie uma senha"
+            autoComplete="new-password"
+            visible={mostrarSenha}
+            onToggle={() => setMostrarSenha(!mostrarSenha)}
+            error={errors.password}
+            onChange={() => clearError("password")}
+          />
+        </FormField>
 
         {/* Confirmar senha */}
-        <div className={styles.field}>
-          <label htmlFor="confirmPassword">Confirmar senha</label>
-
+        <FormField
+          id="confirmPassword"
+          label="Confirmar senha"
+          error={errors.confirmPassword}
+        >
           <input
             id="confirmPassword"
             name="confirmPassword"
@@ -193,17 +159,7 @@ export default function RegisterForm() {
             className={errors.confirmPassword ? styles.inputError : ""}
             onChange={() => clearError("confirmPassword")}
           />
-
-          {errors.confirmPassword && (
-            <span
-              id="confirmPassword-error"
-              className={styles.errorText}
-              role="alert"
-            >
-              {errors.confirmPassword}
-            </span>
-          )}
-        </div>
+        </FormField>
 
         <button type="submit" className={styles.submit}>
           Criar conta
