@@ -247,6 +247,19 @@
     line-height: 1.4;
 }
 
+
+.generalError {
+    margin: 14px 0 0;
+    color: #dc2626;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.submit:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
 /* Cadastro no celular */
 
 @media (max-width: 480px) {

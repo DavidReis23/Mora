@@ -7,6 +7,8 @@ import FormField from "./FormField";
 import PasswordField from "./PasswordField";
 import styles from "./AuthForm.module.css";
 
+import { createClient } from "@/lib/supabase/client";
+
 type LoginErrors = {
   email?: string;
   password?: string;
@@ -17,6 +19,9 @@ export default function LoginForm() {
   const [errors, setErrors] = useState<LoginErrors>({});
   const [mensagem, setMensagem] = useState("");
 
+  const [entrando, setEntrando] = useState(false);
+  const [erroGeral, setErroGeral] = useState("");
+
   function clearError(field: keyof LoginErrors) {
     setErrors((prev) => ({
       ...prev,
@@ -26,7 +31,7 @@ export default function LoginForm() {
     setMensagem("");
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const dados = new FormData(event.currentTarget);
@@ -35,8 +40,6 @@ export default function LoginForm() {
     const senha = String(dados.get("password") ?? "");
 
     const novosErros: LoginErrors = {};
-
-    // Validar e-mail
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!email) {
@@ -45,23 +48,56 @@ export default function LoginForm() {
       novosErros.email = "Digite um e-mail válido.";
     }
 
-    // Validar senha
     if (!senha) {
       novosErros.password = "Informe sua senha.";
-    } else if (senha.length < 8) {
-      novosErros.password = "Sua senha deve ter pelo menos 8 caracteres.";
     }
 
     setErrors(novosErros);
     setMensagem("");
+    setErroGeral("");
 
     if (Object.keys(novosErros).length > 0) {
       return;
     }
 
-    setMensagem(
-      "Formulário validado! A autenticação real será implementada futuramente.",
-    );
+    setEntrando(true);
+
+    try {
+      const supabase = createClient();
+
+      const { error } = await supabase.auth.signInWithPassword({
+        email,
+        password: senha,
+      });
+
+      if (error) {
+        if (error.code === "email_not_confirmed") {
+          setErroGeral(
+            "Confirme seu e-mail antes de entrar. Verifique sua caixa de entrada.",
+          );
+        } else if (error.code === "invalid_credentials") {
+          setErroGeral(
+            "E-mail ou senha incorretos. Verifique e tente novamente.",
+          );
+        } else {
+          setErroGeral(
+            "Não foi possível entrar na sua conta. Tente novamente.",
+          );
+        }
+
+        return;
+      }
+
+      setMensagem(
+        "Login realizado com sucesso! Sua sessão está ativa no Mora.",
+      );
+    } catch {
+      setErroGeral(
+        "Não foi possível conectar ao serviço. Verifique sua conexão.",
+      );
+    } finally {
+      setEntrando(false);
+    }
   }
 
   return (
@@ -110,10 +146,16 @@ export default function LoginForm() {
           <Link href="/recuperar-senha">Esqueceu sua senha?</Link>
         </div>
 
-        <button type="submit" className={styles.submit}>
-          Entrar
+        <button type="submit" className={styles.submit} disabled={entrando}>
+          {entrando ? "Entrando..." : "Entrar"}
         </button>
       </form>
+
+      {erroGeral && (
+        <p className={styles.generalError} role="alert">
+          {erroGeral}
+        </p>
+      )}
 
       {mensagem && (
         <p className={styles.message} role="status">
