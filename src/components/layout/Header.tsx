@@ -1,8 +1,17 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import Logo from "@/components/brand/Logo";
 import styles from "./Header.module.css";
 
 export default function Header() {
+  const pathname = usePathname();
+
+  const isPropertiesPage =
+    pathname === "/imoveis" || pathname.startsWith("/imoveis/");
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -12,9 +21,11 @@ export default function Header() {
         </Link>
 
         <nav className={styles.navigation} aria-label="Menu principal">
-          <Link href="/imoveis" className={styles.explore}>
-            Explorar imóveis
-          </Link>
+          {!isPropertiesPage && (
+            <Link href="/imoveis" className={styles.explore}>
+              Explorar imóveis
+            </Link>
+          )}
 
           <Link href="/login" className={styles.login}>
             Entrar
