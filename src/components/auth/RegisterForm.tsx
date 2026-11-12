@@ -14,6 +14,7 @@ type FormErrors = {
   email?: string;
   password?: string;
   confirmPassword?: string;
+  accountType?: string;
 };
 
 export default function RegisterForm() {
@@ -42,6 +43,7 @@ export default function RegisterForm() {
     const email = String(dados.get("email") ?? "").trim();
     const senha = String(dados.get("password") ?? "");
     const confirmarSenha = String(dados.get("confirmPassword") ?? "");
+    const tipoConta = String(dados.get("accountType") ?? "");
 
     const novosErros: FormErrors = {};
 
@@ -71,6 +73,10 @@ export default function RegisterForm() {
       novosErros.confirmPassword = "As senhas não coincidem.";
     }
 
+    if (tipoConta !== "cliente" && tipoConta !== "proprietario") {
+      novosErros.accountType = "Escolha o tipo de conta.";
+    }
+
     setErrors(novosErros);
     setMensagem("");
     setErroGeral("");
@@ -91,6 +97,7 @@ export default function RegisterForm() {
         options: {
           data: {
             full_name: nome,
+            account_type: tipoConta,
           },
           emailRedirectTo: `${window.location.origin}/login`,
         },
@@ -149,6 +156,48 @@ export default function RegisterForm() {
       </p>
 
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
+        <fieldset className={styles.accountTypeField}>
+          <legend className={styles.accountTypeLegend}>
+            Como você deseja usar o Mora?
+          </legend>
+
+          <div className={styles.accountTypeOptions}>
+            <label className={styles.accountTypeOption}>
+              <input
+                type="radio"
+                name="accountType"
+                value="cliente"
+                onChange={() => clearError("accountType")}
+              />
+
+              <span>
+                <strong>Cliente</strong>
+                <small>Quero encontrar imóveis</small>
+              </span>
+            </label>
+
+            <label className={styles.accountTypeOption}>
+              <input
+                type="radio"
+                name="accountType"
+                value="proprietario"
+                onChange={() => clearError("accountType")}
+              />
+
+              <span>
+                <strong>Proprietário</strong>
+                <small>Quero anunciar imóveis</small>
+              </span>
+            </label>
+          </div>
+
+          {errors.accountType && (
+            <span className={styles.errorText} role="alert">
+              {errors.accountType}
+            </span>
+          )}
+        </fieldset>
+
         {/* Nome completo */}
         <FormField id="fullName" label="Nome completo" error={errors.fullName}>
           <input

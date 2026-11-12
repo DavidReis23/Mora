@@ -260,6 +260,136 @@
     cursor: wait;
 }
 
+
+/* Tipo de conta */
+
+.accountTypeField {
+    border: none;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+.accountTypeLegend {
+    margin-bottom: 10px;
+    color: #111827;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.accountTypeOptions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.accountTypeOption {
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+    padding: 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.accountTypeOption input {
+    margin-top: 3px;
+    accent-color: #2563eb;
+}
+
+.accountTypeOption span {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.accountTypeOption strong {
+    color: #111827;
+    font-size: 13px;
+}
+
+.accountTypeOption small {
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.accountTypeOption:has(input:checked) {
+    border-color: #2563eb;
+    background-color: #eff6ff;
+}
+
+.accountTypeOption:focus-within {
+    outline: 2px solid #93c5fd;
+    outline-offset: 2px;
+}
+
+@media (max-width: 360px) {
+    .accountTypeOptions {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* Cadastro mais compacto */
+
+.registerCard {
+    padding: 20px 28px;
+}
+
+.registerCard h2 {
+    margin: 6px 0 4px;
+    font-size: 26px;
+}
+
+.registerCard .description {
+    margin-bottom: 10px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.registerCard .form {
+    gap: 8px;
+}
+
+.registerCard .field {
+    gap: 4px;
+}
+
+.registerCard .field input {
+    height: 42px;
+}
+
+.registerCard .accountTypeLegend {
+    margin-bottom: 6px;
+}
+
+.registerCard .accountTypeOptions {
+    gap: 8px;
+}
+
+.registerCard .accountTypeOption {
+    padding: 8px 10px;
+}
+
+.registerCard .submit {
+    height: 44px;
+}
+
+.registerCard .signup {
+    margin-top: 10px;
+}
+
+.registerCard .separator {
+    margin: 8px 0;
+}
+
+.registerCard .explore {
+    padding: 8px 12px;
+}
+
 /* Cadastro no celular */
 
 @media (max-width: 480px) {
