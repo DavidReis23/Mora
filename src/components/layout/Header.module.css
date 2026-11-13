@@ -1,27 +1,35 @@
-/* CABEÇALHO PRINCIPAL DO MORA */
+/* ========================================
+   MORA - CABEÇALHO
+======================================== */
 
 .header {
     position: sticky;
     top: 0;
-    z-index: 100;
+    z-index: 1000;
+
     width: 100%;
     background: #ffffff;
     border-bottom: 1px solid #e5eaf1;
 }
 
 .container {
-    width: calc(100% - (var(--page-spacing) * 2));
-    max-width: var(--container-width);
-    min-height: 80px;
-    margin: 0 auto;
+    position: relative;
 
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 32px;
+
+    width: calc(100% - (var(--page-spacing) * 2));
+    max-width: var(--container-width);
+    min-height: 80px;
+
+    margin: 0 auto;
 }
 
-/* LOGO */
+/* ========================================
+   IDENTIDADE DO MORA
+======================================== */
 
 .brand {
     display: inline-flex;
@@ -29,7 +37,7 @@
     gap: 8px;
     flex-shrink: 0;
 
-    color: #123f80;
+    color: #12458f;
     font-size: 27px;
     font-weight: 700;
     letter-spacing: -0.8px;
@@ -41,7 +49,9 @@
     flex-shrink: 0;
 }
 
-/* MENU DE NAVEGAÇÃO */
+/* ========================================
+   MENU DESKTOP
+======================================== */
 
 .navigation {
     display: flex;
@@ -59,8 +69,8 @@
     color: #17233b;
     font-size: 14px;
     font-weight: 500;
-    text-decoration: none;
     white-space: nowrap;
+
     transition: color 0.2s ease;
 }
 
@@ -72,9 +82,9 @@
 /* SEPARAÇÃO DA ÁREA DE LOGIN */
 
 .login {
+    min-height: 32px;
     margin-left: 8px;
     padding-left: 28px;
-    min-height: 32px;
     border-left: 1px solid #dbe3ef;
 }
 
@@ -90,12 +100,11 @@
 
     border-radius: 9px;
     background: #12458f;
-    color: #ffffff;
 
+    color: #ffffff;
     font-size: 14px;
     font-weight: 600;
     white-space: nowrap;
-    text-decoration: none;
 
     transition: background 0.2s ease;
 }
@@ -104,17 +113,15 @@
     background: #0c3471;
 }
 
-/* ACESSIBILIDADE */
+/* ESCONDER HAMBÚRGUER NO COMPUTADOR */
 
-.brand:focus-visible,
-.explore:focus-visible,
-.login:focus-visible,
-.signup:focus-visible {
-    outline: 3px solid #93c5fd;
-    outline-offset: 4px;
+.menuToggle {
+    display: none;
 }
 
-/* TABLETS */
+/* ========================================
+   TABLETS
+======================================== */
 
 @media (max-width: 1000px) {
     .container {
@@ -131,19 +138,28 @@
     }
 }
 
-/* CELULARES */
+/* ========================================
+   CELULARES
+======================================== */
 
 @media (max-width: 760px) {
+
+    /* CABEÇALHO COMPACTO */
+
     .container {
-        flex-direction: column;
-        align-items: stretch;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        min-height: 68px;
         gap: 12px;
-        padding: 12px 0;
     }
 
+    /* LOGO */
+
     .brand {
-        align-self: flex-start;
         font-size: 24px;
+        gap: 7px;
     }
 
     .brand svg {
@@ -151,40 +167,157 @@
         height: 38px;
     }
 
-    .navigation {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 10px 8px;
-        width: 100%;
+    /* BOTÃO HAMBÚRGUER */
+
+    .menuToggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        flex-shrink: 0;
+        width: 44px;
+        height: 44px;
+
+        border: 1px solid #e5eaf1;
+        border-radius: 10px;
+
+        background: #ffffff;
+        color: #17233b;
+        cursor: pointer;
+
+        transition:
+            background-color 0.2s ease,
+            border-color 0.2s ease;
     }
+
+    .menuToggle:hover {
+        background: #f1f5f9;
+        border-color: #cbd5e1;
+    }
+
+    /* MENU FECHADO */
+
+    .navigation {
+        display: none;
+
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        z-index: 1001;
+
+        width: 100%;
+        padding: 12px 16px 18px;
+
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0;
+
+        border: 1px solid #e5eaf1;
+        border-radius: 0 0 14px 14px;
+
+        background: #ffffff;
+        box-shadow: 0 16px 28px rgba(15, 23, 42, 0.12);
+    }
+
+    /* MENU ABERTO */
+
+    .navigationOpen {
+        display: flex;
+    }
+
+    /* LINKS DO MENU */
 
     .explore {
-        padding: 8px 0;
-        font-size: 13px;
+        display: flex;
+        justify-content: flex-start;
+
+        min-height: 46px;
+        padding: 12px 8px;
+
+        border-bottom: 1px solid #f1f5f9;
+
+        font-size: 14px;
+        font-weight: 500;
     }
+
+    .explore:hover {
+        color: #12458f;
+    }
+
+    /* ENTRAR */
 
     .login {
-        grid-column: span 2;
-        margin: 0;
-        padding: 9px 12px;
-        min-height: 38px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        min-height: 44px;
+
+        margin: 16px 0 10px;
+        padding: 10px 16px;
+
         border: 1px solid #dbe3ef;
         border-radius: 9px;
+
+        font-size: 14px;
+        font-weight: 600;
     }
 
+    /* CRIAR CONTA */
+
     .signup {
-        grid-column: span 2;
-        min-height: 38px;
-        padding: 9px 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        width: 100%;
+        min-height: 44px;
+        padding: 10px 16px;
+
+        font-size: 14px;
     }
 }
 
+/* ========================================
+   TELAS MUITO PEQUENAS
+======================================== */
+
 @media (max-width: 380px) {
-    .explore {
-        font-size: 12px;
+    .brand {
+        font-size: 22px;
+    }
+
+    .brand svg {
+        width: 34px;
+        height: 34px;
     }
 
     .navigation {
-        gap: 8px 4px;
+        padding: 10px 12px 16px;
+    }
+}
+
+/* ========================================
+   ACESSIBILIDADE
+======================================== */
+
+.brand:focus-visible,
+.explore:focus-visible,
+.login:focus-visible,
+.signup:focus-visible,
+.menuToggle:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .explore,
+    .login,
+    .signup,
+    .menuToggle {
+        transition: none;
     }
 }

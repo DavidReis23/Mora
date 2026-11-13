@@ -1,5 +1,7 @@
 ﻿import Link from "next/link";
 
+import { House, KeyRound, Megaphone } from "lucide-react";
+
 import Header from "@/components/layout/Header";
 import Hero from "@/components/home/Hero";
 import Footer from "@/components/layout/Footer";
@@ -71,7 +73,7 @@ export default function HomePage() {
               </p>
 
               <Link href="/cadastro" className={styles.announceButton}>
-                Criar conta para anunciar
+                Anunciar meu imóvel
               </Link>
 
               <p className={styles.announceNote}>
@@ -116,33 +118,33 @@ export default function HomePage() {
                 </p>
               </div>
 
+              {/* COMPRA */}
               <div className={styles.benefit}>
                 <span className={styles.benefitIcon}>
-                  <span aria-hidden="true">⌂</span>
+                  <House size={24} strokeWidth={1.8} aria-hidden="true" />
                 </span>
 
                 <h4>Compra</h4>
-
                 <p>Explore imóveis disponíveis para venda.</p>
               </div>
 
+              {/* ALUGUEL */}
               <div className={styles.benefit}>
                 <span className={styles.benefitIcon}>
-                  <span aria-hidden="true">⌕</span>
+                  <KeyRound size={24} strokeWidth={1.8} aria-hidden="true" />
                 </span>
 
                 <h4>Aluguel</h4>
-
                 <p>Encontre opções para morar ou alugar.</p>
               </div>
 
+              {/* ANÚNCIOS */}
               <div className={styles.benefit}>
                 <span className={styles.benefitIcon}>
-                  <span aria-hidden="true">+</span>
+                  <Megaphone size={24} strokeWidth={1.8} aria-hidden="true" />
                 </span>
 
                 <h4>Anúncios</h4>
-
                 <p>Um espaço para proprietários divulgarem seus imóveis.</p>
               </div>
             </div>

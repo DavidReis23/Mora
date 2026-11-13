@@ -1,5 +1,3 @@
-/* HERO — APRESENTAÇÃO DO MORA */
-
 .hero {
     position: relative;
     isolation: isolate;
@@ -8,19 +6,21 @@
     align-items: center;
 
     width: 100%;
-    min-height: clamp(500px, 70svh, 720px);
+    min-height: clamp(500px, 68svh, 680px);
 
-    background-color: #20344b;
-    background-image: url("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85");
+    background-color: #526477;
+
+    /* Nova fotografia */
+    background-image:
+        url("https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?auto=format&fit=crop&w=2000&q=85");
+
     background-size: cover;
-    background-position: center;
+    background-position: center 53%;
     background-repeat: no-repeat;
 
     color: #ffffff;
     overflow: hidden;
 }
-
-/* CAMADA ESCURA PARA DESTACAR O TEXTO */
 
 .overlay {
     position: absolute;
@@ -28,13 +28,11 @@
     z-index: 0;
 
     background: linear-gradient(90deg,
-            rgba(7, 19, 38, 0.82) 0%,
-            rgba(7, 19, 38, 0.58) 40%,
-            rgba(7, 19, 38, 0.18) 75%,
-            rgba(7, 19, 38, 0.08) 100%);
+            rgba(10, 24, 42, 0.65) 0%,
+            rgba(10, 24, 42, 0.38) 36%,
+            rgba(10, 24, 42, 0.10) 72%,
+            rgba(10, 24, 42, 0.02) 100%);
 }
-
-/* ALINHAMENTO DO CONTEÚDO */
 
 .container {
     position: relative;
@@ -42,48 +40,49 @@
 
     width: calc(100% - (var(--page-spacing) * 2));
     max-width: var(--container-width);
+
     margin: 0 auto;
     padding: 80px 0;
 }
 
 .content {
-    max-width: 680px;
+    max-width: 650px;
 }
-
-/* FRASE PRINCIPAL */
 
 .title {
     margin: 0;
 
-    font-family: inherit;
-    font-size: clamp(38px, 5vw, 64px);
-    font-weight: 700;
-    line-height: 1.12;
-    letter-spacing: -1.8px;
-
     color: #ffffff;
+
+    font-family: inherit;
+    font-size: clamp(38px, 4.4vw, 58px);
+    font-weight: 700;
+
+    line-height: 1.13;
+    letter-spacing: -1.5px;
+
     text-wrap: balance;
+
+    text-shadow: 0 2px 18px rgba(0, 0, 0, 0.22);
 }
 
-/* DESCRIÇÃO */
-
 .description {
-    max-width: 550px;
-    margin-top: 24px;
+    max-width: 520px;
+    margin-top: 20px;
 
-    font-size: clamp(15px, 1.5vw, 19px);
+    color: rgba(255, 255, 255, 0.97);
+
+    font-size: clamp(15px, 1.3vw, 18px);
     font-weight: 400;
     line-height: 1.65;
 
-    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
 }
-
-/* BOTÃO EXPLORAR IMÓVEIS */
 
 .actions {
     display: flex;
     align-items: center;
-    margin-top: 32px;
+    margin-top: 30px;
 }
 
 .primary {
@@ -94,13 +93,16 @@
     min-height: 52px;
     padding: 14px 28px;
 
-    border-radius: 10px;
-    background-color: #2563eb;
+    border-radius: 9px;
+
+    background: #2563eb;
     color: #ffffff;
 
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
+
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.10);
 
     transition:
         background-color 0.2s ease,
@@ -108,7 +110,7 @@
 }
 
 .primary:hover {
-    background-color: #1d4ed8;
+    background: #1d4ed8;
     transform: translateY(-2px);
 }
 
@@ -117,74 +119,94 @@
     outline-offset: 4px;
 }
 
-/* TABLETS */
-
 @media (max-width: 900px) {
     .hero {
-        min-height: 570px;
-        background-position: 60% center;
+        min-height: 550px;
+        background-position: 58% center;
     }
 
     .container {
         padding: 72px 0;
     }
 
+    .content {
+        max-width: 580px;
+    }
+
     .title {
-        font-size: clamp(36px, 6vw, 52px);
+        font-size: clamp(36px, 5.5vw, 52px);
     }
 
     .overlay {
         background: linear-gradient(90deg,
-                rgba(7, 19, 38, 0.85) 0%,
-                rgba(7, 19, 38, 0.55) 70%,
-                rgba(7, 19, 38, 0.3) 100%);
+                rgba(10, 24, 42, 0.70),
+                rgba(10, 24, 42, 0.22));
     }
 }
 
-/* CELULARES */
+
+/* ========================================
+   HERO - VERSÃO MOBILE
+======================================== */
 
 @media (max-width: 600px) {
     .hero {
-        min-height: 560px;
-        background-position: 65% center;
+        min-height: 470px;
+        background-position: 60% center;
     }
 
     .container {
-        padding: 64px 0;
+        padding: 48px 0;
     }
 
     .content {
         max-width: 100%;
     }
 
+    /* TÍTULO PRINCIPAL */
+
     .title {
-        font-size: clamp(33px, 9vw, 44px);
-        line-height: 1.16;
-        letter-spacing: -1px;
+        font-size: clamp(30px, 8vw, 38px);
+        font-weight: 700;
+        line-height: 1.17;
+        letter-spacing: -0.8px;
+
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
     }
+
+    /* DESCRIÇÃO */
 
     .description {
-        max-width: 340px;
-        margin-top: 20px;
+        max-width: 330px;
+        margin-top: 18px;
 
-        font-size: 15px;
+        font-size: 14px;
         line-height: 1.6;
+
+        text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
     }
 
+    /* BOTÃO */
+
     .actions {
-        margin-top: 28px;
+        margin-top: 24px;
     }
 
     .primary {
-        min-height: 48px;
-        padding: 12px 22px;
+        min-height: 46px;
+        padding: 12px 20px;
+
         font-size: 14px;
+        border-radius: 8px;
     }
+
+    /* CONTRASTE SOBRE A FOTO */
 
     .overlay {
         background: linear-gradient(90deg,
-                rgba(7, 19, 38, 0.86),
-                rgba(7, 19, 38, 0.48));
+                rgba(10, 24, 42, 0.68) 0%,
+                rgba(10, 24, 42, 0.46) 55%,
+                rgba(10, 24, 42, 0.22) 100%);
     }
 }
 
