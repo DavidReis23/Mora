@@ -1,168 +1,199 @@
+/* HERO — APRESENTAÇÃO DO MORA */
+
 .hero {
-    min-height: calc(100dvh - 80px);
+    position: relative;
+    isolation: isolate;
+
     display: flex;
     align-items: center;
-    background: #f8fafc;
-    color: #111827;
-    padding: 72px 0;
+
+    width: 100%;
+    min-height: clamp(500px, 70svh, 720px);
+
+    background-color: #20344b;
+    background-image: url("https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=85");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    color: #ffffff;
+    overflow: hidden;
 }
 
+/* CAMADA ESCURA PARA DESTACAR O TEXTO */
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+
+    background: linear-gradient(90deg,
+            rgba(7, 19, 38, 0.82) 0%,
+            rgba(7, 19, 38, 0.58) 40%,
+            rgba(7, 19, 38, 0.18) 75%,
+            rgba(7, 19, 38, 0.08) 100%);
+}
+
+/* ALINHAMENTO DO CONTEÚDO */
 
 .container {
+    position: relative;
+    z-index: 1;
+
     width: calc(100% - (var(--page-spacing) * 2));
     max-width: var(--container-width);
     margin: 0 auto;
-
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    align-items: center;
-    gap: 64px;
+    padding: 80px 0;
 }
 
 .content {
-    max-width: 620px;
+    max-width: 680px;
 }
 
-.label {
-    display: inline-block;
-    margin-bottom: 24px;
-    color: #2563eb;
-    font-size: 14px;
-    font-weight: 600;
-}
+/* FRASE PRINCIPAL */
 
-.content h1 {
-    font-size: clamp(36px, 5vw, 64px);
+.title {
+    margin: 0;
+
+    font-family: inherit;
+    font-size: clamp(38px, 5vw, 64px);
+    font-weight: 700;
     line-height: 1.12;
-    letter-spacing: -1.5px;
-    margin: 0 0 24px;
+    letter-spacing: -1.8px;
+
+    color: #ffffff;
+    text-wrap: balance;
 }
 
-.content h1 span {
-    color: #2563eb;
+/* DESCRIÇÃO */
+
+.description {
+    max-width: 550px;
+    margin-top: 24px;
+
+    font-size: clamp(15px, 1.5vw, 19px);
+    font-weight: 400;
+    line-height: 1.65;
+
+    color: rgba(255, 255, 255, 0.95);
 }
 
-.content p {
-    max-width: 530px;
-    color: #64748b;
-    font-size: 17px;
-    line-height: 1.8;
-}
+/* BOTÃO EXPLORAR IMÓVEIS */
 
 .actions {
     display: flex;
-    flex-wrap: wrap;
-    gap: 16px;
+    align-items: center;
     margin-top: 32px;
 }
 
-.primary,
-.secondary {
+.primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 50px;
-    padding: 12px 24px;
-    border-radius: 12px;
+
+    min-height: 52px;
+    padding: 14px 28px;
+
+    border-radius: 10px;
+    background-color: #2563eb;
+    color: #ffffff;
+
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
-}
 
-.primary {
-    background: #2563eb;
-    color: #fff;
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 .primary:hover {
-    background: #1d4ed8;
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
 }
 
-.secondary {
-    background: #fff;
-    color: #2563eb;
-    border: 1px solid #bfdbfe;
+.primary:focus-visible {
+    outline: 3px solid #bfdbfe;
+    outline-offset: 4px;
 }
 
-.secondary:hover {
-    background: #eff6ff;
-}
-
-.information {
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 24px;
-    padding: 44px;
-    box-shadow: 0 20px 55px rgba(15, 23, 42, 0.06);
-}
-
-.informationLabel {
-    color: #2563eb;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.information h2 {
-    font-size: 30px;
-    line-height: 1.3;
-    margin: 20px 0;
-}
-
-.information p {
-    color: #64748b;
-    line-height: 1.7;
-}
-
-.features {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 28px;
-}
-
-.features span {
-    background: #eff6ff;
-    color: #1d4ed8;
-    padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 13px;
-}
+/* TABLETS */
 
 @media (max-width: 900px) {
-    .container {
-        grid-template-columns: 1fr;
-        gap: 40px;
-    }
-
     .hero {
-        padding: 60px 20px;
+        min-height: 570px;
+        background-position: 60% center;
     }
 
-    .information {
-        padding: 28px;
+    .container {
+        padding: 72px 0;
+    }
+
+    .title {
+        font-size: clamp(36px, 6vw, 52px);
+    }
+
+    .overlay {
+        background: linear-gradient(90deg,
+                rgba(7, 19, 38, 0.85) 0%,
+                rgba(7, 19, 38, 0.55) 70%,
+                rgba(7, 19, 38, 0.3) 100%);
     }
 }
 
-@media (max-width: 480px) {
+/* CELULARES */
+
+@media (max-width: 600px) {
     .hero {
-        padding: 48px 16px;
+        min-height: 560px;
+        background-position: 65% center;
     }
 
-    .content h1 {
-        font-size: 36px;
-        letter-spacing: -0.8px;
+    .container {
+        padding: 64px 0;
     }
 
-    .content p {
+    .content {
+        max-width: 100%;
+    }
+
+    .title {
+        font-size: clamp(33px, 9vw, 44px);
+        line-height: 1.16;
+        letter-spacing: -1px;
+    }
+
+    .description {
+        max-width: 340px;
+        margin-top: 20px;
+
         font-size: 15px;
+        line-height: 1.6;
     }
 
     .actions {
-        flex-direction: column;
+        margin-top: 28px;
     }
 
-    .primary,
-    .secondary {
-        width: 100%;
+    .primary {
+        min-height: 48px;
+        padding: 12px 22px;
+        font-size: 14px;
+    }
+
+    .overlay {
+        background: linear-gradient(90deg,
+                rgba(7, 19, 38, 0.86),
+                rgba(7, 19, 38, 0.48));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .primary {
+        transition: none;
+    }
+
+    .primary:hover {
+        transform: none;
     }
 }

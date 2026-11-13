@@ -1,8 +1,9 @@
 type LogoProps = {
   size?: number;
+  plain?: boolean;
 };
 
-export default function Logo({ size = 64 }: LogoProps) {
+export default function Logo({ size = 64, plain = false }: LogoProps) {
   return (
     <svg
       width={size}
@@ -13,11 +14,10 @@ export default function Logo({ size = 64 }: LogoProps) {
       role="img"
       aria-label="Logo do Mora"
     >
-      {/* Fundo azul */}
-      <rect width="64" height="64" rx="14" fill="#2563EB" />
+      {!plain && <rect width="64" height="64" rx="14" fill="#2563EB" />}
 
       <g
-        stroke="#FFFFFF"
+        stroke={plain ? "#11458F" : "#FFFFFF"}
         strokeWidth="2.7"
         strokeLinecap="round"
         strokeLinejoin="round"

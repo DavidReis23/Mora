@@ -1,32 +1,41 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 
 import Logo from "@/components/brand/Logo";
 import styles from "./Header.module.css";
 
 export default function Header() {
-  const pathname = usePathname();
-
-  const isPropertiesPage =
-    pathname === "/imoveis" || pathname.startsWith("/imoveis/");
-
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        <Link href="/" className={styles.brand}>
-          <Logo size={44} />
+        {/* Identidade do Mora */}
+        <Link
+          href="/#inicio"
+          className={styles.brand}
+          aria-label="Mora - Voltar ao início"
+        >
+          <Logo size={44} plain />
           <span>Mora</span>
         </Link>
 
-        <nav className={styles.navigation} aria-label="Menu principal">
-          {!isPropertiesPage && (
-            <Link href="/imoveis" className={styles.explore}>
-              Explorar imóveis
-            </Link>
-          )}
+        {/* Menu principal */}
+        <nav className={styles.navigation} aria-label="Navegação principal">
+          <Link href="/#inicio" className={styles.explore}>
+            Início
+          </Link>
 
+          <Link href="/#imoveis" className={styles.explore}>
+            Imóveis
+          </Link>
+
+          <Link href="/#anunciar" className={styles.explore}>
+            Anunciar
+          </Link>
+
+          <Link href="/#sobre" className={styles.explore}>
+            Sobre
+          </Link>
+
+          {/* Acesso à conta */}
           <Link href="/login" className={styles.login}>
             Entrar
           </Link>

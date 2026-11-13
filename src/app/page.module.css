@@ -1,16 +1,376 @@
+/* ========================================
+   MORA - PÁGINA INICIAL
+======================================== */
+
 .main {
-  min-height: calc(100dvh - 80px);
-  padding: 64px 24px;
-  background-color: #f8fafc;
-  color: #111827;
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #17233b;
 }
 
-.main h1 {
-  font-size: clamp(28px, 5vw, 42px);
-  margin-bottom: 12px;
+.container {
+  width: calc(100% - (var(--page-spacing) * 2));
+  max-width: var(--container-width);
+  margin: 0 auto;
 }
 
-.main p {
+/* ========================================
+   SEÇÃO - IMÓVEIS EM DESTAQUE
+======================================== */
+
+.section {
+  padding: 88px 0 100px;
+  background: #ffffff;
+  scroll-margin-top: 90px;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 14px;
+
+  color: #12458f;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.sectionTitle {
+  color: #14213b;
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.8px;
+}
+
+.moreLink {
+  flex-shrink: 0;
+  color: #12458f;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.moreLink:hover {
+  color: #2563eb;
+}
+
+/* CARDS DOS IMÓVEIS */
+
+.propertyGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+}
+
+/* ========================================
+   SEÇÃO - ANUNCIAR
+======================================== */
+
+.announceSection {
+  padding: 100px 0;
+  background: #edf4fc;
+  scroll-margin-top: 90px;
+}
+
+.announceContent {
+  max-width: 760px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.announceTitle {
+  color: #14213b;
+  font-size: clamp(32px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.16;
+  letter-spacing: -1.2px;
+}
+
+.announceDescription {
+  max-width: 590px;
+  margin: 24px auto 0;
+
+  color: #526179;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+.announceButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-height: 50px;
+  margin-top: 32px;
+  padding: 14px 28px;
+
+  background: #12458f;
+  border-radius: 9px;
+
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+
+  transition:
+    background-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.announceButton:hover {
+  background: #0c3471;
+  transform: translateY(-2px);
+}
+
+.announceNote {
+  margin-top: 16px;
   color: #64748b;
+  font-size: 13px;
+}
+
+/* ========================================
+   SEÇÃO - SOBRE O MORA
+======================================== */
+
+.aboutSection {
+  padding: 100px 0 110px;
+  background: #ffffff;
+  scroll-margin-top: 90px;
+}
+
+/* APRESENTAÇÃO */
+
+.aboutIntro {
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  align-items: center;
+  gap: 70px;
+  margin-bottom: 70px;
+}
+
+.aboutTitle {
+  color: #14213b;
+  font-size: clamp(30px, 3.5vw, 44px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -1px;
+}
+
+.aboutDescription {
+  padding-left: 48px;
+  border-left: 1px solid #d6dfec;
+
+  color: #526179;
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+/* POR QUE ESCOLHER O MORA */
+
+.benefits {
+  display: grid;
+  grid-template-columns: 1.4fr repeat(3, 1fr);
+  gap: 28px;
+  align-items: start;
+
+  padding: 36px;
+  border-radius: 16px;
+  background: #f0f5fb;
+}
+
+.benefitsIntro {
+  padding-right: 24px;
+  border-right: 1px solid #d6dfec;
+}
+
+.benefitsIntro h3 {
+  margin-bottom: 12px;
+
+  color: #14213b;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.5px;
+}
+
+.benefitsIntro p {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+/* BENEFÍCIOS INDIVIDUAIS */
+
+.benefit {
+  min-width: 0;
+}
+
+.benefitIcon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 44px;
+  height: 44px;
+  margin-bottom: 16px;
+
+  border-radius: 10px;
+  background: #dce9fb;
+  color: #12458f;
+
+  font-size: 26px;
+  font-weight: 600;
+}
+
+.benefit h4 {
+  margin-bottom: 8px;
+
+  color: #14213b;
   font-size: 16px;
+  font-weight: 700;
+}
+
+.benefit p {
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* ========================================
+   ACESSIBILIDADE
+======================================== */
+
+.moreLink:focus-visible,
+.announceButton:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 4px;
+}
+
+/* ========================================
+   TABLETS
+======================================== */
+
+@media (max-width: 1000px) {
+  .propertyGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .aboutIntro {
+    gap: 36px;
+  }
+
+  .aboutDescription {
+    padding-left: 28px;
+  }
+
+  .benefits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .benefitsIntro {
+    border-right: none;
+    padding-right: 0;
+  }
+}
+
+/* ========================================
+   CELULARES
+======================================== */
+
+@media (max-width: 640px) {
+  .section {
+    padding: 64px 0;
+  }
+
+  .sectionHeading {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .sectionTitle {
+    font-size: 28px;
+  }
+
+  .propertyGrid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .announceSection {
+    padding: 72px 0;
+  }
+
+  .announceTitle {
+    font-size: 34px;
+  }
+
+  .announceDescription {
+    font-size: 15px;
+  }
+
+  .announceButton {
+    width: 100%;
+  }
+
+  .aboutSection {
+    padding: 72px 0;
+  }
+
+  .aboutIntro {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 48px;
+  }
+
+  .aboutTitle {
+    font-size: 32px;
+  }
+
+  .aboutDescription {
+    padding-left: 0;
+    border-left: none;
+    font-size: 15px;
+  }
+
+  .benefits {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 28px;
+  }
+
+  .benefitsIntro {
+    padding-bottom: 24px;
+    border-bottom: 1px solid #d6dfec;
+  }
+
+  .benefitIcon {
+    margin-bottom: 12px;
+  }
+
+  .section,
+  .announceSection,
+  .aboutSection {
+    scroll-margin-top: 170px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .announceButton {
+    transition: none;
+  }
+
+  .announceButton:hover {
+    transform: none;
+  }
 }
