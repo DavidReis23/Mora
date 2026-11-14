@@ -4,8 +4,8 @@ import { useState, type FormEvent } from "react";
 import Link from "next/link";
 
 import FormField from "./FormField";
-import styles from "./AuthForm.module.css";
 import PasswordField from "./PasswordField";
+import styles from "./AuthForm.module.css";
 
 import { createClient } from "@/lib/supabase/client";
 
@@ -19,11 +19,11 @@ type FormErrors = {
 
 export default function RegisterForm() {
   const [mostrarSenha, setMostrarSenha] = useState(false);
+
   const [errors, setErrors] = useState<FormErrors>({});
   const [mensagem, setMensagem] = useState("");
-
-  const [enviando, setEnviando] = useState(false);
   const [erroGeral, setErroGeral] = useState("");
+  const [enviando, setEnviando] = useState(false);
 
   function clearError(field: keyof FormErrors) {
     setErrors((prev) => ({
@@ -32,6 +32,7 @@ export default function RegisterForm() {
     }));
 
     setMensagem("");
+    setErroGeral("");
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -46,33 +47,33 @@ export default function RegisterForm() {
     const tipoConta = String(dados.get("accountType") ?? "");
 
     const novosErros: FormErrors = {};
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    // Validar nome
+    // VALIDAR NOME
     if (nome.length < 3) {
       novosErros.fullName = "Digite seu nome completo.";
     } else if (nome.includes("@")) {
       novosErros.fullName = "Informe seu nome, não um e-mail.";
     }
 
-    // Validar e-mail
-    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+    // VALIDAR E-MAIL
     if (!emailValido.test(email)) {
       novosErros.email = "Digite um e-mail válido.";
     }
 
-    // Validar senha
+    // VALIDAR SENHA
     if (senha.length < 8) {
       novosErros.password = "Sua senha deve ter pelo menos 8 caracteres.";
     }
 
-    // Validar confirmação
+    // CONFIRMAR SENHA
     if (!confirmarSenha) {
       novosErros.confirmPassword = "Confirme sua senha.";
     } else if (senha !== confirmarSenha) {
       novosErros.confirmPassword = "As senhas não coincidem.";
     }
 
+    // VALIDAR TIPO DE CONTA
     if (tipoConta !== "cliente" && tipoConta !== "proprietario") {
       novosErros.accountType = "Escolha o tipo de conta.";
     }
@@ -85,7 +86,6 @@ export default function RegisterForm() {
       return;
     }
 
-    // Solicitar cadastro ao Supabase
     setEnviando(true);
 
     try {
@@ -106,8 +106,9 @@ export default function RegisterForm() {
       if (error) {
         if (error.code === "email_address_not_authorized") {
           setErroGeral(
-            "O Supabase ainda não permite enviar e-mails para " +
-              "esse endereço. Utilize um e-mail autorizado do projeto.",
+            "O Supabase ainda não permite enviar e-mails " +
+              "para esse endereço. Utilize um e-mail " +
+              "autorizado do projeto.",
           );
         } else if (error.code === "over_email_send_rate_limit") {
           setErroGeral(
@@ -115,8 +116,8 @@ export default function RegisterForm() {
               "Tente novamente mais tarde.",
           );
         } else if (error.code === "weak_password") {
-          setErrors((previous) => ({
-            ...previous,
+          setErrors((prev) => ({
+            ...prev,
             password: "A senha não atende aos requisitos de segurança.",
           }));
         } else {
@@ -131,8 +132,9 @@ export default function RegisterForm() {
 
       setMensagem(
         "Solicitação de cadastro recebida! " +
-          "Se o endereço puder ser cadastrado, você receberá " +
-          "um e-mail de confirmação. Verifique também a pasta de spam.",
+          "Se o endereço puder ser cadastrado, " +
+          "você receberá um e-mail de confirmação. " +
+          "Verifique também a pasta de spam.",
       );
     } catch {
       setErroGeral(
@@ -151,14 +153,32 @@ export default function RegisterForm() {
       <h2>Faça parte do Mora</h2>
 
       <p className={styles.description}>
-        Crie sua conta para salvar imóveis, conversar com anunciantes e divulgar
-        suas próprias oportunidades.
+        Crie sua conta para encontrar, salvar ou anunciar imóveis.
       </p>
 
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
-        <fieldset className={styles.accountTypeField}>
+        {/* TIPO DE CONTA */}
+        <fieldset
+          className={styles.accountTypeField}
+          aria-invalid={!!errors.accountType}
+          aria-describedby={
+            errors.accountType ? "account-type-error" : undefined
+          }
+        >
           <legend className={styles.accountTypeLegend}>
-            Como você deseja usar o Mora?
+            <span className={styles.fieldHeading}>
+              <span>Como você deseja usar o Mora?</span>
+
+              {errors.accountType && (
+                <span
+                  id="account-type-error"
+                  className={styles.fieldError}
+                  role="alert"
+                >
+                  {errors.accountType}
+                </span>
+              )}
+            </span>
           </legend>
 
           <div className={styles.accountTypeOptions}>
@@ -190,15 +210,9 @@ export default function RegisterForm() {
               </span>
             </label>
           </div>
-
-          {errors.accountType && (
-            <span className={styles.errorText} role="alert">
-              {errors.accountType}
-            </span>
-          )}
         </fieldset>
 
-        {/* Nome completo */}
+        {/* NOME COMPLETO */}
         <FormField id="fullName" label="Nome completo" error={errors.fullName}>
           <input
             id="fullName"
@@ -215,7 +229,7 @@ export default function RegisterForm() {
           />
         </FormField>
 
-        {/* E-mail */}
+        {/* E-MAIL */}
         <FormField id="registerEmail" label="E-mail" error={errors.email}>
           <input
             id="registerEmail"
@@ -231,8 +245,7 @@ export default function RegisterForm() {
           />
         </FormField>
 
-        {/* Senha */}
-
+        {/* SENHA */}
         <FormField id="registerPassword" label="Senha" error={errors.password}>
           <PasswordField
             id="registerPassword"
@@ -241,12 +254,12 @@ export default function RegisterForm() {
             autoComplete="new-password"
             visible={mostrarSenha}
             onToggle={() => setMostrarSenha(!mostrarSenha)}
-            error={errors.password}
             onChange={() => clearError("password")}
+            error={errors.password}
           />
         </FormField>
 
-        {/* Confirmar senha */}
+        {/* CONFIRMAR SENHA */}
         <FormField
           id="confirmPassword"
           label="Confirmar senha"
@@ -269,34 +282,30 @@ export default function RegisterForm() {
           />
         </FormField>
 
+        {/* BOTÃO */}
         <button type="submit" className={styles.submit} disabled={enviando}>
           {enviando ? "Criando conta..." : "Criar conta"}
         </button>
       </form>
 
+      {/* ERRO DO SUPABASE */}
       {erroGeral && (
         <p className={styles.generalError} role="alert">
           {erroGeral}
         </p>
       )}
 
+      {/* SUCESSO */}
       {mensagem && (
         <p className={styles.message} role="status">
           {mensagem}
         </p>
       )}
 
+      {/* LOGIN */}
       <p className={styles.signup}>
         Já possui uma conta? <Link href="/login">Entrar</Link>
       </p>
-
-      <div className={styles.separator}>
-        <span>ou</span>
-      </div>
-
-      <Link href="/imoveis" className={styles.explore}>
-        Explorar imóveis sem criar conta
-      </Link>
     </div>
   );
 }

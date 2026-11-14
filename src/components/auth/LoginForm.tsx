@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
+
 import Link from "next/link";
 
 import FormField from "./FormField";
@@ -15,6 +16,7 @@ type LoginErrors = {
 };
 
 export default function LoginForm() {
+  // ESTADOS DO FORMULÁRIO
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [errors, setErrors] = useState<LoginErrors>({});
   const [mensagem, setMensagem] = useState("");
@@ -22,6 +24,25 @@ export default function LoginForm() {
   const [entrando, setEntrando] = useState(false);
   const [erroGeral, setErroGeral] = useState("");
 
+  // REFERÊNCIAS PARA LEMBRAR O E-MAIL
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const rememberRef = useRef<HTMLInputElement>(null);
+
+  // RECUPERAR E-MAIL SALVO
+  useEffect(() => {
+    try {
+      const emailSalvo = localStorage.getItem("mora:email-lembrado");
+
+      if (emailSalvo && emailInputRef.current && rememberRef.current) {
+        emailInputRef.current.value = emailSalvo;
+        rememberRef.current.checked = true;
+      }
+    } catch {
+      // Continua normalmente se o armazenamento falhar.
+    }
+  }, []);
+
+  // LIMPAR ERROS DOS CAMPOS
   function clearError(field: keyof LoginErrors) {
     setErrors((prev) => ({
       ...prev,
@@ -29,25 +50,31 @@ export default function LoginForm() {
     }));
 
     setMensagem("");
+    setErroGeral("");
   }
 
+  // REALIZAR LOGIN
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
     const dados = new FormData(event.currentTarget);
 
     const email = String(dados.get("email") ?? "").trim();
+
     const senha = String(dados.get("password") ?? "");
 
     const novosErros: LoginErrors = {};
+
     const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // VALIDAR E-MAIL
     if (!email) {
       novosErros.email = "Informe seu e-mail.";
     } else if (!emailValido.test(email)) {
       novosErros.email = "Digite um e-mail válido.";
     }
 
+    // VALIDAR SENHA
     if (!senha) {
       novosErros.password = "Informe sua senha.";
     }
@@ -65,6 +92,7 @@ export default function LoginForm() {
     try {
       const supabase = createClient();
 
+      // AUTENTICAR NO SUPABASE
       const { error } = await supabase.auth.signInWithPassword({
         email,
         password: senha,
@@ -73,27 +101,40 @@ export default function LoginForm() {
       if (error) {
         if (error.code === "email_not_confirmed") {
           setErroGeral(
-            "Confirme seu e-mail antes de entrar. Verifique sua caixa de entrada.",
+            "Confirme seu e-mail antes de entrar. " +
+              "Verifique sua caixa de entrada.",
           );
         } else if (error.code === "invalid_credentials") {
           setErroGeral(
-            "E-mail ou senha incorretos. Verifique e tente novamente.",
+            "E-mail ou senha incorretos. " + "Verifique e tente novamente.",
           );
         } else {
           setErroGeral(
-            "Não foi possível entrar na sua conta. Tente novamente.",
+            "Não foi possível entrar na sua conta. " + "Tente novamente.",
           );
         }
 
         return;
       }
 
+      // LEMBRAR OU REMOVER O E-MAIL SALVO
+      try {
+        if (rememberRef.current?.checked) {
+          localStorage.setItem("mora:email-lembrado", email);
+        } else {
+          localStorage.removeItem("mora:email-lembrado");
+        }
+      } catch {
+        // O login não depende do armazenamento local.
+      }
+
+      // LOGIN REALIZADO
       setMensagem(
-        "Login realizado com sucesso! Sua sessão está ativa no Mora.",
+        "Login realizado com sucesso! " + "Sua sessão está ativa no Mora.",
       );
     } catch {
       setErroGeral(
-        "Não foi possível conectar ao serviço. Verifique sua conexão.",
+        "Não foi possível conectar ao serviço. " + "Verifique sua conexão.",
       );
     } finally {
       setEntrando(false);
@@ -102,6 +143,7 @@ export default function LoginForm() {
 
   return (
     <div className={styles.card}>
+      {/* APRESENTAÇÃO */}
       <span className={styles.eyebrow}>ACESSE SUA CONTA</span>
 
       <h2>Bem-vindo de volta!</h2>
@@ -111,10 +153,12 @@ export default function LoginForm() {
         reservas.
       </p>
 
+      {/* FORMULÁRIO */}
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
-        {/* E-mail */}
+        {/* E-MAIL */}
         <FormField id="email" label="E-mail" error={errors.email}>
           <input
+            ref={emailInputRef}
             id="email"
             name="email"
             type="email"
@@ -128,7 +172,7 @@ export default function LoginForm() {
           />
         </FormField>
 
-        {/* Senha */}
+        {/* SENHA */}
         <FormField id="password" label="Senha" error={errors.password}>
           <PasswordField
             id="password"
@@ -142,35 +186,50 @@ export default function LoginForm() {
           />
         </FormField>
 
-        <div className={styles.forgotPassword}>
-          <Link href="/recuperar-senha">Esqueceu sua senha?</Link>
+        {/* LEMBRAR DE MIM E RECUPERAÇÃO */}
+        <div className={styles.rememberRow}>
+          <label className={styles.rememberOption}>
+            <input ref={rememberRef} type="checkbox" name="rememberMe" />
+
+            <span>Lembrar de mim</span>
+          </label>
+
+          <div className={styles.forgotPassword}>
+            <Link href="/recuperar-senha">Esqueceu sua senha?</Link>
+          </div>
         </div>
 
+        {/* BOTÃO DE LOGIN */}
         <button type="submit" className={styles.submit} disabled={entrando}>
           {entrando ? "Entrando..." : "Entrar"}
         </button>
       </form>
 
+      {/* ERRO GERAL */}
       {erroGeral && (
         <p className={styles.generalError} role="alert">
           {erroGeral}
         </p>
       )}
 
+      {/* MENSAGEM DE SUCESSO */}
       {mensagem && (
         <p className={styles.message} role="status">
           {mensagem}
         </p>
       )}
 
+      {/* CADASTRO */}
       <p className={styles.signup}>
         Ainda não tem uma conta? <Link href="/cadastro">Cadastre-se</Link>
       </p>
 
+      {/* SEPARADOR */}
       <div className={styles.separator}>
         <span>ou</span>
       </div>
 
+      {/* EXPLORAR SEM LOGIN */}
       <Link href="/imoveis" className={styles.explore}>
         Explorar imóveis sem entrar
       </Link>

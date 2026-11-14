@@ -1,62 +1,110 @@
+/* ========================================
+   MORA - FORMULÁRIOS DE AUTENTICAÇÃO
+======================================== */
+
 .card {
     width: 100%;
     max-width: 470px;
-    padding: 40px;
+    padding: 28px;
+
     border: 1px solid #e2e8f0;
-    border-radius: 24px;
+    border-radius: 20px;
     background: #ffffff;
-    box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+
+    box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
 }
 
+/* TÍTULOS */
+
 .eyebrow {
-    color: var(--primary-color, #2563eb);
-    font-size: 12px;
+    color: #12458f;
+    font-size: 11px;
     font-weight: 700;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
 }
 
 .card h2 {
-    margin: 14px 0 10px;
-    color: #111827;
-    font-size: 30px;
+    margin: 8px 0 6px;
+
+    color: #17233b;
+    font-size: 26px;
+    font-weight: 700;
     line-height: 1.2;
+    letter-spacing: -0.6px;
 }
 
 .description {
-    margin-bottom: 28px;
+    margin-bottom: 16px;
+
     color: #64748b;
-    font-size: 14px;
-    line-height: 1.7;
+    font-size: 13px;
+    line-height: 1.55;
 }
+
+/* ========================================
+   CAMPOS DOS FORMULÁRIOS
+======================================== */
 
 .form {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 12px;
 }
 
 .field {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 5px;
+    min-width: 0;
 }
 
-.field label {
-    color: #334155;
-    font-size: 14px;
-    font-weight: 600;
+/* RÓTULO E ERRO LADO A LADO */
+
+.fieldHeading {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: start;
+    gap: 8px;
+
+    min-height: 18px;
 }
+
+.fieldHeading label {
+    color: #17233b;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+/* MENSAGEM DE ERRO NA DIREITA */
+
+.fieldError {
+    color: #dc2626;
+    font-size: 11px;
+    font-weight: 400;
+    line-height: 1.4;
+    text-align: right;
+
+    overflow-wrap: anywhere;
+}
+
+/* INPUTS */
 
 .field input {
     width: 100%;
-    height: 50px;
-    padding: 0 14px;
+    min-width: 0;
+    height: 44px;
+    padding: 0 13px;
+
     border: 1px solid #cbd5e1;
-    border-radius: 10px;
+    border-radius: 9px;
+
     background: #ffffff;
-    color: #111827;
+    color: #17233b;
+
     font: inherit;
-    font-size: 14px;
+    font-size: 13px;
+
     outline: none;
 }
 
@@ -69,26 +117,62 @@
     color: #94a3b8;
 }
 
+/* ========================================
+   SENHA
+======================================== */
+
 .passwordField {
     position: relative;
 }
 
 .passwordField input {
-    padding-right: 86px;
+    padding-right: 90px;
 }
 
 .passwordToggle {
     position: absolute;
     top: 50%;
-    right: 12px;
+    right: 10px;
+
     transform: translateY(-50%);
     padding: 6px;
-    border: 0;
+
+    border: none;
     background: transparent;
+
     color: #2563eb;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
+
     cursor: pointer;
+}
+
+/* ========================================
+   LOGIN - LEMBRAR DE MIM
+======================================== */
+
+.rememberRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.rememberOption {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: #475569;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+.rememberOption input {
+    width: 16px;
+    height: 16px;
+    accent-color: #12458f;
 }
 
 .forgotPassword {
@@ -97,42 +181,57 @@
 
 .forgotPassword a,
 .signup a {
-    color: #2563eb;
-    font-size: 13px;
+    color: #12458f;
+    font-size: 12px;
     font-weight: 600;
     text-decoration: none;
 }
 
+.forgotPassword a:hover,
+.signup a:hover {
+    text-decoration: underline;
+}
+
+/* ========================================
+   BOTÃO PRINCIPAL
+======================================== */
+
 .submit {
-    height: 50px;
-    border: 0;
-    border-radius: 10px;
+    width: 100%;
+    height: 44px;
+
+    border: none;
+    border-radius: 9px;
+
     background: #2563eb;
     color: #ffffff;
+
     font: inherit;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 700;
+
     cursor: pointer;
+    transition: background 0.2s ease;
 }
 
 .submit:hover {
     background: #1d4ed8;
 }
 
-.message {
-    margin-top: 14px;
-    padding: 12px;
-    border-radius: 10px;
-    background: #eff6ff;
-    color: #1e40af;
-    font-size: 13px;
-    line-height: 1.5;
+.submit:disabled {
+    opacity: 0.65;
+    cursor: wait;
 }
 
+/* ========================================
+   LINKS INFERIORES
+======================================== */
+
 .signup {
-    margin-top: 24px;
+    margin-top: 14px;
+
     color: #64748b;
-    font-size: 13px;
+    font-size: 12px;
     text-align: center;
 }
 
@@ -140,7 +239,9 @@
     display: flex;
     align-items: center;
     gap: 12px;
-    margin: 20px 0;
+
+    margin: 14px 0;
+
     color: #94a3b8;
     font-size: 12px;
 }
@@ -155,11 +256,13 @@
 
 .explore {
     display: block;
-    padding: 12px;
+    padding: 11px 12px;
+
     border: 1px solid #cbd5e1;
-    border-radius: 10px;
+    border-radius: 9px;
+
     color: #334155;
-    font-size: 13px;
+    font-size: 12px;
     font-weight: 600;
     text-align: center;
     text-decoration: none;
@@ -169,66 +272,31 @@
     background: #f8fafc;
 }
 
-@media (max-width: 480px) {
-    .card {
-        padding: 26px 20px;
-    }
+/* ========================================
+   MENSAGENS E VALIDAÇÕES
+======================================== */
 
-    .card h2 {
-        font-size: 25px;
-    }
+.message {
+    margin-top: 12px;
+    padding: 11px;
 
-    .description {
-        margin-bottom: 20px;
-    }
-}
+    border-radius: 9px;
+    background: #eff6ff;
 
-
-/* Ajustes exclusivos do cadastro */
-
-.registerCard {
-    padding: 28px 32px;
-}
-
-.registerCard h2 {
-    margin: 10px 0 6px;
-    font-size: 28px;
-}
-
-.registerCard .description {
-    margin-bottom: 16px;
+    color: #1e40af;
+    font-size: 12px;
     line-height: 1.5;
 }
 
-.registerCard .form {
-    gap: 12px;
+.generalError {
+    margin-top: 12px;
+
+    color: #dc2626;
+    font-size: 12px;
+    line-height: 1.5;
 }
 
-.registerCard .field {
-    gap: 5px;
-}
-
-.registerCard .field input {
-    height: 44px;
-}
-
-.registerCard .submit {
-    height: 46px;
-}
-
-.registerCard .signup {
-    margin-top: 16px;
-}
-
-.registerCard .separator {
-    margin: 12px 0;
-}
-
-.registerCard .explore {
-    padding: 10px;
-}
-
-/* Validação dos campos */
+/* BORDAS VERMELHAS */
 
 .field .inputError {
     border-color: #dc2626;
@@ -239,119 +307,42 @@
     box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
+/* PARA ERROS FORA DE FORMFIELD */
+
 .errorText {
     display: block;
-    margin-top: 2px;
-    color: #dc2626;
-    font-size: 12px;
-    line-height: 1.4;
-}
-
-
-.generalError {
-    margin: 14px 0 0;
-    color: #dc2626;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-.submit:disabled {
-    opacity: 0.65;
-    cursor: wait;
-}
-
-
-/* Tipo de conta */
-
-.accountTypeField {
-    border: none;
-    margin: 0;
-    padding: 0;
-    min-width: 0;
-}
-
-.accountTypeLegend {
-    margin-bottom: 10px;
-    color: #111827;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.accountTypeOptions {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-}
-
-.accountTypeOption {
-    display: flex;
-    align-items: flex-start;
-    gap: 9px;
-    padding: 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: 0.2s ease;
-}
-
-.accountTypeOption input {
     margin-top: 3px;
-    accent-color: #2563eb;
-}
 
-.accountTypeOption span {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.accountTypeOption strong {
-    color: #111827;
-    font-size: 13px;
-}
-
-.accountTypeOption small {
-    color: #64748b;
+    color: #dc2626;
     font-size: 11px;
     line-height: 1.4;
 }
 
-.accountTypeOption:has(input:checked) {
-    border-color: #2563eb;
-    background-color: #eff6ff;
-}
-
-.accountTypeOption:focus-within {
-    outline: 2px solid #93c5fd;
-    outline-offset: 2px;
-}
-
-@media (max-width: 360px) {
-    .accountTypeOptions {
-        grid-template-columns: 1fr;
-    }
-}
-
-
-/* Cadastro mais compacto */
+/* ========================================
+   CADASTRO
+======================================== */
 
 .registerCard {
-    padding: 20px 28px;
+    padding: 0;
 }
 
 .registerCard h2 {
-    margin: 6px 0 4px;
-    font-size: 26px;
+    margin: 7px 0 5px;
+    font-size: 25px;
 }
 
 .registerCard .description {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 13px;
     line-height: 1.5;
 }
 
+/* CAMPOS EM UMA ÚNICA COLUNA */
+
 .registerCard .form {
-    gap: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
 }
 
 .registerCard .field {
@@ -362,38 +353,315 @@
     height: 42px;
 }
 
-.registerCard .accountTypeLegend {
-    margin-bottom: 6px;
+/* ========================================
+   TIPO DE CONTA
+======================================== */
+
+.accountTypeField {
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
-.registerCard .accountTypeOptions {
+.accountTypeLegend {
+    width: 100%;
+    margin-bottom: 7px;
+
+    color: #17233b;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.accountTypeLegend .fieldHeading {
+    width: 100%;
+}
+
+.accountTypeOptions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 8px;
 }
 
-.registerCard .accountTypeOption {
-    padding: 8px 10px;
+.accountTypeOption {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+    min-width: 0;
+    padding: 10px;
+
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease;
 }
+
+.accountTypeOption input {
+    flex-shrink: 0;
+    margin-top: 3px;
+    accent-color: #2563eb;
+}
+
+.accountTypeOption span {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+.accountTypeOption strong {
+    color: #17233b;
+    font-size: 12px;
+}
+
+.accountTypeOption small {
+    color: #64748b;
+    font-size: 11px;
+    line-height: 1.4;
+}
+
+.accountTypeOption:has(input:checked) {
+    border-color: #2563eb;
+    background: #eff6ff;
+}
+
+.accountTypeOption:focus-within {
+    outline: 2px solid #93c5fd;
+    outline-offset: 2px;
+}
+
+/* FINAL DO CADASTRO */
 
 .registerCard .submit {
     height: 44px;
+    margin-top: 3px;
 }
 
 .registerCard .signup {
-    margin-top: 10px;
+    margin-top: 12px;
 }
 
-.registerCard .separator {
-    margin: 8px 0;
-}
 
-.registerCard .explore {
-    padding: 8px 12px;
-}
+/* ========================================
+   MORA - AUTENTICAÇÃO MOBILE
+======================================== */
 
-/* Cadastro no celular */
+@media (max-width: 600px) {
 
-@media (max-width: 480px) {
+    /* CARTÃO */
+
+    .card,
     .registerCard {
-        padding: 24px 20px;
+        width: 100%;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    /* TÍTULOS */
+
+    .eyebrow {
+        font-size: 11px;
+        letter-spacing: 1px;
+    }
+
+    .card h2,
+    .registerCard h2 {
+        margin: 8px 0;
+        font-size: 25px;
+        line-height: 1.2;
+        letter-spacing: -0.5px;
+    }
+
+    .description,
+    .registerCard .description {
+        margin-bottom: 20px;
+        font-size: 14px;
+        line-height: 1.55;
+    }
+
+    /* ORGANIZAÇÃO DOS CAMPOS */
+
+    .form,
+    .registerCard .form {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .field,
+    .registerCard .field {
+        gap: 6px;
+    }
+
+    /* RÓTULOS E ERROS */
+
+    .fieldHeading {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 8px;
+        align-items: start;
+    }
+
+    .fieldHeading label {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .fieldError {
+        font-size: 11px;
+        line-height: 1.4;
+    }
+
+    /* INPUTS */
+
+    .field input,
+    .registerCard .field input {
+        width: 100%;
+        height: 48px;
+        padding: 0 14px;
+
+        border-radius: 10px;
+
+        font-size: 16px;
+    }
+
+    .field input::placeholder {
+        font-size: 14px;
+    }
+
+    /* MOSTRAR SENHA */
+
+    .passwordField input,
+    .registerCard .passwordField input {
+        padding-right: 88px;
+    }
+
+    .passwordToggle {
+        right: 8px;
+        font-size: 13px;
+    }
+
+    /* LEMBRAR DE MIM */
+
+    .rememberRow {
+        gap: 10px;
+    }
+
+    .rememberOption {
+        font-size: 13px;
+    }
+
+    .rememberOption input {
+        width: 18px;
+        height: 18px;
+    }
+
+    .forgotPassword a {
+        font-size: 12px;
+    }
+
+    /* BOTÕES */
+
+    .submit,
+    .registerCard .submit {
+        width: 100%;
+        height: 48px;
+        margin-top: 2px;
+
+        border-radius: 10px;
+        font-size: 15px;
+    }
+
+    /* LINKS INFERIORES */
+
+    .signup,
+    .registerCard .signup {
+        margin-top: 18px;
+        font-size: 13px;
+    }
+
+    .signup a {
+        font-size: 13px;
+    }
+
+    .separator {
+        margin: 16px 0;
+    }
+
+    .explore {
+        padding: 14px 12px;
+        font-size: 13px;
+    }
+
+    /* ========================================
+     ESCOLHA DO TIPO DE CONTA
+  ======================================== */
+
+    .accountTypeLegend {
+        margin-bottom: 10px;
+        font-size: 14px;
+    }
+
+    .accountTypeOptions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .accountTypeOption {
+        min-height: 80px;
+        padding: 12px 10px;
+
+        gap: 8px;
+        border-radius: 10px;
+    }
+
+    .accountTypeOption input {
+        margin-top: 3px;
+        flex-shrink: 0;
+    }
+
+    .accountTypeOption strong {
+        font-size: 13px;
+        line-height: 1.4;
+    }
+
+    .accountTypeOption small {
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+    /* MENSAGENS */
+
+    .message,
+    .generalError {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+}
+
+/* ========================================
+   CELULARES MENORES
+======================================== */
+
+@media (max-width: 360px) {
+
+    .card h2,
+    .registerCard h2 {
+        font-size: 23px;
+    }
+
+    .accountTypeOptions {
+        grid-template-columns: 1fr;
+    }
+
+    .accountTypeOption {
+        min-height: 62px;
+    }
+
+    .rememberRow {
+        align-items: flex-start;
     }
 }

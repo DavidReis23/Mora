@@ -1,119 +1,322 @@
 .layout {
-    min-height: 100dvh;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-}
+    position: relative;
+    isolation: isolate;
 
-.presentation {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 48px;
-    padding: clamp(28px, 5vw, 64px);
-    color: #ffffff;
-    background: linear-gradient(145deg,
-            #0b2b67 0%,
-            #1256c5 60%,
-            #2c82ff 100%);
-}
-
-.brand {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    width: fit-content;
-    color: #ffffff;
-    font-size: 30px;
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.content {
-    max-width: 540px;
-}
-
-.label {
-    display: block;
-    margin-bottom: 22px;
-    color: #bfdbfe;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-}
-
-.content h1 {
-    margin: 0 0 24px;
-    font-size: clamp(36px, 4.5vw, 60px);
-    line-height: 1.12;
-    letter-spacing: -1.5px;
-}
-
-.content p {
-    max-width: 480px;
-    color: #dbeafe;
-    font-size: 16px;
-    line-height: 1.8;
-}
-
-.categories {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 28px;
-}
-
-.categories span {
-    padding: 9px 14px;
-    border: 1px solid rgba(255, 255, 255, 0.25);
-    border-radius: 999px;
-    background: rgba(255, 255, 255, 0.1);
-    color: #ffffff;
-    font-size: 13px;
-}
-
-.footer {
-    color: #bfdbfe;
-    font-size: 12px;
-}
-
-.formArea {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 16px 24px;
-    background: #f4f8ff;
+
+    width: 100%;
+    min-height: 100dvh;
+    padding: 48px 24px;
+
+    background: #263b4d;
+    color: #17233b;
 }
 
-@media (max-width: 850px) {
+/* ========================================
+   FOTOGRAFIA DE FUNDO
+======================================== */
+
+.background {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    background-image:
+        linear-gradient(rgba(12, 25, 43, 0.18),
+            rgba(12, 25, 43, 0.28)),
+        url("https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?auto=format&fit=crop&w=2000&q=85"
+        );
+
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* ========================================
+   CARTÃO BRANCO CENTRALIZADO
+======================================== */
+
+
+.shell {
+    position: relative;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    width: 100%;
+    max-width: 520px;
+    padding: 28px 36px 30px;
+
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    border-radius: 24px;
+
+    background: rgba(255, 255, 255, 0.98);
+
+    box-shadow: 0 24px 65px rgba(12, 25, 43, 0.22);
+}
+
+/* ========================================
+   LOGO DO MORA
+======================================== */
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    width: fit-content;
+    margin-bottom: 18px;
+
+    color: #12458f;
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    line-height: 1;
+
+    text-decoration: none;
+}
+
+.brand svg {
+    display: block;
+    flex-shrink: 0;
+    width: 50px;
+    height: 50px;
+}
+
+/* ========================================
+   ÁREA DO FORMULÁRIO
+======================================== */
+
+.formArea {
+    width: 100%;
+    max-width: 430px;
+    min-width: 0;
+}
+
+.formArea> :first-child {
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+
+    border: none;
+    border-radius: 0;
+
+    background: transparent;
+    box-shadow: none;
+}
+
+/* ========================================
+   ACESSIBILIDADE
+======================================== */
+
+.brand:focus-visible {
+    outline: 3px solid #93c5fd;
+    outline-offset: 5px;
+    border-radius: 8px;
+}
+
+/* ========================================
+   TABLETS
+======================================== */
+
+@media (max-width: 900px) {
     .layout {
-        display: flex;
-        flex-direction: column;
+        padding: 32px 20px;
     }
 
-    .presentation {
-        min-height: 170px;
-        padding: 24px 20px 58px;
+    .shell {
+        max-width: 520px;
+        padding: 28px 32px 30px;
     }
 
     .brand {
-        font-size: 25px;
+        margin-bottom: 18px;
+        font-size: 30px;
+    }
+}
+
+
+/* ========================================
+   AJUSTE DO TAMANHO DOS FORMULÁRIOS
+   LOGIN, CADASTRO E RECUPERAÇÃO
+======================================== */
+
+/* COMPUTADORES E TABLETS */
+
+@media (min-width: 601px) {
+    .layout {
+        padding: 16px 20px;
     }
 
-    .content,
-    .footer {
-        display: none;
+    .shell {
+        max-width: 500px;
+        padding: 20px 30px 22px;
+        border-radius: 22px;
+    }
+
+    .brand {
+        margin-bottom: 14px;
+        font-size: 28px;
+    }
+
+    .brand svg {
+        width: 44px;
+        height: 44px;
     }
 
     .formArea {
-        position: relative;
-        flex: 1;
-        align-items: flex-start;
-        margin-top: -30px;
-        padding: 0 16px 32px;
-        background: transparent;
+        max-width: 420px;
+    }
+}
+
+/* CELULARES */
+
+@media (max-width: 600px) {
+    .layout {
+        padding: 14px 12px;
     }
 
+    .shell {
+        padding: 22px 18px 26px;
+    }
+
+    .brand {
+        margin-bottom: 14px;
+    }
+}
+
+
+/* ========================================
+   MORA - AUTENTICAÇÃO NO CELULAR
+======================================== */
+
+@media (max-width: 600px) {
     .layout {
-        background: #f4f8ff;
+        min-height: 100dvh;
+
+        align-items: flex-start;
+        justify-content: center;
+
+        padding: 125px 16px 28px;
+
+        background: #f6f8fc;
+    }
+
+    /* FOTO APENAS NA PARTE SUPERIOR */
+
+    .background {
+        inset: 0 0 auto 0;
+        height: 210px;
+
+        background-position: center 42%;
+        background-size: cover;
+    }
+
+    /* CARTÃO PRINCIPAL */
+
+    .shell {
+        width: 100%;
+        max-width: 440px;
+
+        margin: 0 auto;
+        padding: 26px 22px 30px;
+
+        border: 1px solid #e7ecf3;
+        border-radius: 22px;
+
+        background: #ffffff;
+
+        box-shadow:
+            0 12px 32px rgba(15, 23, 42, 0.1);
+    }
+
+    /* LOGO */
+
+    .brand {
+        gap: 10px;
+        margin-bottom: 22px;
+
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .brand svg {
+        width: 46px;
+        height: 46px;
+    }
+
+    /* FORMULÁRIO */
+
+    .formArea {
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 380px) {
+    .layout {
+        padding: 115px 12px 24px;
+    }
+
+    .shell {
+        padding: 24px 18px 28px;
+    }
+}
+
+/* ========================================
+   TELAS MUITO PEQUENAS
+======================================== */
+
+@media (max-width: 380px) {
+    .layout {
+        padding: 16px 12px;
+    }
+
+    .shell {
+        padding: 24px 18px 28px;
+    }
+}
+
+
+/* ========================================
+   CADASTRO - AJUSTE EXCLUSIVO MOBILE
+======================================== */
+
+@media (max-width: 600px) {
+
+    /* APROXIMAR O CADASTRO DO TOPO */
+
+    .layout:has(input[name="accountType"]) {
+        padding-top: 36px;
+        padding-bottom: 20px;
+    }
+
+    /* DIMINUIR A FAIXA DA FOTOGRAFIA */
+
+    .layout:has(input[name="accountType"]) .background {
+        height: 140px;
+    }
+
+    /* REDUZIR ESPAÇOS EXTERNOS DO CARTÃO */
+
+    .layout:has(input[name="accountType"]) .shell {
+        padding-top: 20px;
+        padding-bottom: 24px;
+    }
+
+    /* APROXIMAR LOGO E FORMULÁRIO */
+
+    .layout:has(input[name="accountType"]) .brand {
+        margin-bottom: 14px;
+    }
+
+    .layout:has(input[name="accountType"]) .brand svg {
+        width: 42px;
+        height: 42px;
     }
 }

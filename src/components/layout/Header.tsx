@@ -17,18 +17,13 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.container}>
-        {/* LOGO */}
-        <Link
-          href="/#inicio"
-          className={styles.brand}
-          aria-label="Mora - Página inicial"
-          onClick={fecharMenu}
-        >
+        {/* LOGO APENAS VISUAL */}
+        <div className={styles.brand}>
           <Logo size={44} plain />
           <span>Mora</span>
-        </Link>
+        </div>
 
-        {/* BOTÃO DO MENU MOBILE */}
+        {/* MENU MOBILE */}
         <button
           type="button"
           className={styles.menuToggle}

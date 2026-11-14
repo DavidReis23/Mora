@@ -17,15 +17,19 @@ export default function FormField({
 }: FormFieldProps) {
   return (
     <div className={styles.field}>
-      <label htmlFor={id}>{label}</label>
+      {/* RÓTULO E ERRO NA MESMA LINHA */}
+      <div className={styles.fieldHeading}>
+        <label htmlFor={id}>{label}</label>
 
+        {error && (
+          <span id={`${id}-error`} className={styles.fieldError} role="alert">
+            {error}
+          </span>
+        )}
+      </div>
+
+      {/* CAMPO DE ENTRADA */}
       {children}
-
-      {error && (
-        <span id={`${id}-error`} className={styles.errorText} role="alert">
-          {error}
-        </span>
-      )}
     </div>
   );
 }
