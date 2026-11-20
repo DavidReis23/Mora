@@ -11,10 +11,16 @@ import styles from "./AuthForm.module.css";
 
 type Etapa = "verificando" | "pronto" | "invalido" | "concluido";
 
+type ErrosCampos = {
+  senha?: string;
+  confirmacao?: string;
+};
+
 export default function ResetPasswordForm() {
   const [etapa, setEtapa] = useState<Etapa>("verificando");
   const [mostrarSenha, setMostrarSenha] = useState(false);
   const [erro, setErro] = useState("");
+  const [errosCampos, setErrosCampos] = useState<ErrosCampos>({});
   const [salvando, setSalvando] = useState(false);
 
   useEffect(() => {
@@ -54,25 +60,30 @@ export default function ResetPasswordForm() {
     setErro("");
 
     const dados = new FormData(event.currentTarget);
-
     const senha = String(dados.get("password") ?? "");
     const confirmarSenha = String(dados.get("confirmPassword") ?? "");
+    const avisos: ErrosCampos = {};
 
-    if (senha.length < 8) {
-      setErro("A senha deve ter pelo menos 8 caracteres.");
-      return;
+    if (!senha) {
+      avisos.senha = "Informe sua nova senha.";
+    } else if (senha.length < 8) {
+      avisos.senha = "Use pelo menos 8 caracteres.";
     }
 
-    if (senha !== confirmarSenha) {
-      setErro("As senhas não coincidem.");
-      return;
+    if (!confirmarSenha) {
+      avisos.confirmacao = "Confirme sua nova senha.";
+    } else if (!avisos.senha && senha !== confirmarSenha) {
+      avisos.confirmacao = "As senhas não coincidem.";
     }
+
+    setErrosCampos(avisos);
+
+    if (avisos.senha || avisos.confirmacao) return;
 
     setSalvando(true);
 
     try {
       const supabase = createClient();
-
       const { error } = await supabase.auth.updateUser({
         password: senha,
       });
@@ -103,6 +114,7 @@ export default function ResetPasswordForm() {
       {etapa === "verificando" && (
         <>
           <h2>Verificando seu link...</h2>
+
           <p className={styles.description} role="status">
             Estamos verificando sua solicitação de recuperação.
           </p>
@@ -134,7 +146,11 @@ export default function ResetPasswordForm() {
           </p>
 
           <form className={styles.form} onSubmit={handleSubmit} noValidate>
-            <FormField id="newPassword" label="Nova senha">
+            <FormField
+              id="newPassword"
+              label="Nova senha"
+              error={errosCampos.senha}
+            >
               <PasswordField
                 id="newPassword"
                 name="password"
@@ -142,11 +158,19 @@ export default function ResetPasswordForm() {
                 autoComplete="new-password"
                 visible={mostrarSenha}
                 onToggle={() => setMostrarSenha(!mostrarSenha)}
-                onChange={() => setErro("")}
+                error={errosCampos.senha}
+                onChange={() => {
+                  setErro("");
+                  setErrosCampos({});
+                }}
               />
             </FormField>
 
-            <FormField id="confirmNewPassword" label="Confirmar nova senha">
+            <FormField
+              id="confirmNewPassword"
+              label="Confirmar nova senha"
+              error={errosCampos.confirmacao}
+            >
               <PasswordField
                 id="confirmNewPassword"
                 name="confirmPassword"
@@ -154,20 +178,24 @@ export default function ResetPasswordForm() {
                 autoComplete="new-password"
                 visible={mostrarSenha}
                 onToggle={() => setMostrarSenha(!mostrarSenha)}
-                onChange={() => setErro("")}
+                error={errosCampos.confirmacao}
+                onChange={() => {
+                  setErro("");
+                  setErrosCampos((atual) => ({ senha: atual.senha }));
+                }}
               />
             </FormField>
-
-            {erro && (
-              <p className={styles.generalError} role="alert">
-                {erro}
-              </p>
-            )}
 
             <button type="submit" className={styles.submit} disabled={salvando}>
               {salvando ? "Salvando..." : "Salvar nova senha"}
             </button>
           </form>
+
+          {erro && (
+            <p className={styles.generalError} role="alert">
+              {erro}
+            </p>
+          )}
         </>
       )}
 

@@ -1,7 +1,3 @@
-/* ========================================
-   MORA - FORMULÁRIOS DE AUTENTICAÇÃO
-======================================== */
-
 .card {
     width: 100%;
     max-width: 470px;
@@ -13,8 +9,6 @@
 
     box-shadow: 0 12px 36px rgba(15, 23, 42, 0.08);
 }
-
-/* TÍTULOS */
 
 .eyebrow {
     color: #12458f;
@@ -41,10 +35,6 @@
     line-height: 1.55;
 }
 
-/* ========================================
-   CAMPOS DOS FORMULÁRIOS
-======================================== */
-
 .form {
     display: flex;
     flex-direction: column;
@@ -57,8 +47,6 @@
     gap: 5px;
     min-width: 0;
 }
-
-/* RÓTULO E ERRO LADO A LADO */
 
 .fieldHeading {
     display: grid;
@@ -76,8 +64,6 @@
     line-height: 1.4;
 }
 
-/* MENSAGEM DE ERRO NA DIREITA */
-
 .fieldError {
     color: #dc2626;
     font-size: 11px;
@@ -87,8 +73,6 @@
 
     overflow-wrap: anywhere;
 }
-
-/* INPUTS */
 
 .field input {
     width: 100%;
@@ -117,10 +101,6 @@
     color: #94a3b8;
 }
 
-/* ========================================
-   SENHA
-======================================== */
-
 .passwordField {
     position: relative;
 }
@@ -146,10 +126,6 @@
 
     cursor: pointer;
 }
-
-/* ========================================
-   LOGIN - LEMBRAR DE MIM
-======================================== */
 
 .rememberRow {
     display: flex;
@@ -192,10 +168,6 @@
     text-decoration: underline;
 }
 
-/* ========================================
-   BOTÃO PRINCIPAL
-======================================== */
-
 .submit {
     width: 100%;
     height: 44px;
@@ -222,10 +194,6 @@
     opacity: 0.65;
     cursor: wait;
 }
-
-/* ========================================
-   LINKS INFERIORES
-======================================== */
 
 .signup {
     margin-top: 14px;
@@ -272,10 +240,6 @@
     background: #f8fafc;
 }
 
-/* ========================================
-   MENSAGENS E VALIDAÇÕES
-======================================== */
-
 .message {
     margin-top: 12px;
     padding: 11px;
@@ -296,8 +260,6 @@
     line-height: 1.5;
 }
 
-/* BORDAS VERMELHAS */
-
 .field .inputError {
     border-color: #dc2626;
 }
@@ -307,8 +269,6 @@
     box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
 }
 
-/* PARA ERROS FORA DE FORMFIELD */
-
 .errorText {
     display: block;
     margin-top: 3px;
@@ -317,10 +277,6 @@
     font-size: 11px;
     line-height: 1.4;
 }
-
-/* ========================================
-   CADASTRO
-======================================== */
 
 .registerCard {
     padding: 0;
@@ -337,8 +293,6 @@
     line-height: 1.5;
 }
 
-/* CAMPOS EM UMA ÚNICA COLUNA */
-
 .registerCard .form {
     display: flex;
     flex-direction: column;
@@ -352,10 +306,6 @@
 .registerCard .field input {
     height: 42px;
 }
-
-/* ========================================
-   TIPO DE CONTA
-======================================== */
 
 .accountTypeField {
     min-width: 0;
@@ -444,11 +394,6 @@
 .registerCard .signup {
     margin-top: 12px;
 }
-
-
-/* ========================================
-   MORA - AUTENTICAÇÃO MOBILE
-======================================== */
 
 @media (max-width: 600px) {
 
@@ -596,9 +541,7 @@
         font-size: 13px;
     }
 
-    /* ========================================
-     ESCOLHA DO TIPO DE CONTA
-  ======================================== */
+    /*ESCOLHA DO TIPO DE CONTA*/
 
     .accountTypeLegend {
         margin-bottom: 10px;
@@ -641,10 +584,6 @@
         line-height: 1.5;
     }
 }
-
-/* ========================================
-   CELULARES MENORES
-======================================== */
 
 @media (max-width: 360px) {
 
